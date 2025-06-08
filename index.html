@@ -3,29 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GitHub Pages で FreeDOS</title>
+  <title>js‑dos で Impulse Tracker</title>
   <style>
     html, body { margin:0; padding:0; height:100%; }
     #dosbox { width:100%; height:100%; }
   </style>
 
   <!-- js‑dos v8 のスタイル -->
-  <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css"> <!-- :contentReference[oaicite:0]{index=0} -->
+  <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css"> <!--  -->
   <!-- js‑dos v8 本体 -->
-  <script src="https://v8.js-dos.com/latest/js-dos.js"></script>      <!-- :contentReference[oaicite:1]{index=1} -->
+  <script src="https://v8.js-dos.com/latest/js-dos.js"></script>      <!--  -->
 </head>
 <body>
   <div id="dosbox"></div>
 
   <script>
     (async () => {
-      // Dos インスタンスを生成（WASM も自動で読み込み）
+      // 1) Dos インスタンスを生成（WASM モジュールも自動読み込み）
       const player = await Dos(document.getElementById("dosbox"));
-      
-      // FreeDOS 1.2 フル版 ZIP をマウントして実行
-      // ibiblio の公式ミラーを直接利用
-      await player.mount("/", "https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.2/official/FD12FULL.zip"); <!-- :contentReference[oaicite:2]{index=2} -->
-      player.run("/FDISK.COM");
+
+      // 2) Impulse Tracker v1.05 ZIP を ModLand ミラーから直接マウント
+      //    ZIP 内のルートに IT.EXE がある前提です
+      await player.mount(
+        "/IT", 
+        "https://modland.com/pub/software/trackers/DOS/Impulse%20Tracker/Impulse%20Tracker%20v1.05.zip"
+      ); <!-- :contentReference[oaicite:2]{index=2} -->
+
+      // 3) IT.EXE を起動
+      player.run("/IT/IT.EXE");
     })();
   </script>
 </body>
