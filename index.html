@@ -3,44 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>js‑dos で Impulse Tracker & DOOM</title>
+  <title>GitHub Pages で FreeDOS</title>
   <style>
     html, body { margin:0; padding:0; height:100%; }
     #dosbox { width:100%; height:100%; }
   </style>
 
-  <!-- js‑dos v8 の CSS/JS -->
-  <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">  
-  <script src="https://v8.js-dos.com/latest/js-dos.js"></script>  
+  <!-- js‑dos v8 のスタイル -->
+  <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css"> <!-- :contentReference[oaicite:0]{index=0} -->
+  <!-- js‑dos v8 本体 -->
+  <script src="https://v8.js-dos.com/latest/js-dos.js"></script>      <!-- :contentReference[oaicite:1]{index=1} -->
 </head>
 <body>
   <div id="dosbox"></div>
 
   <script>
     (async () => {
-      // DosBox インスタンス生成
+      // Dos インスタンスを生成（WASM も自動で読み込み）
       const player = await Dos(document.getElementById("dosbox"));
       
-      // ───────────────────────────────
-      // 1) Impulse Tracker の起動
-      // ───────────────────────────────
-      // ModLand ミラーから Impulse Tracker v1.05 を ZIP で取得
-      // （ZIP のルートに IT.EXE がある構成を想定） :contentReference[oaicite:0]{index=0}
-      await player.mount("/TRACKER", 
-        "https://modland.com/pub/software/trackers/DOS/Impulse%20Tracker/Impulse%20Tracker%20v1.05.zip"
-      );
-      // ZIP 内の実行ファイル名を正確に指定
-      player.run("/TRACKER/IT.EXE");
-      
-      // ───────────────────────────────
-      // 2) DOOM Shareware の起動
-      // ───────────────────────────────
-      // Internet Archive から DOOM シェアウェアを ZIP で取得 :contentReference[oaicite:1]{index=1}
-      await player.mount("/DOOM", 
-        "https://archive.org/download/DoomsharewareEpisode/DOOM1SHR.ZIP"
-      );
-      // ZIP 内の実行ファイル（DOOM.EXE）を起動
-      player.run("/DOOM/DOOM.EXE");
+      // FreeDOS 1.2 フル版 ZIP をマウントして実行
+      // ibiblio の公式ミラーを直接利用
+      await player.mount("/", "https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.2/official/FD12FULL.zip"); <!-- :contentReference[oaicite:2]{index=2} -->
+      player.run("/FDISK.COM");
     })();
   </script>
 </body>
